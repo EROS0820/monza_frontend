@@ -22,7 +22,7 @@ const Contractor = props => {
 		supplier: [{id: 1, name: 'Nie'}, {id: 2, name: 'Tak'}],
 		recipient: [{id: 1, name: 'Nie'}, {id: 2, name: 'Tak'}]
 	})
-	const [page, setPage] = useState(25);
+	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
 

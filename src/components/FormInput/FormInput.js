@@ -5,6 +5,7 @@ import { Typography, Checkbox, FormControlLabel, TextareaAutosize, Grid } from '
 import DeleteIcon from '@material-ui/icons/Delete';
 import { SingleSelect } from 'components';
 import OutlineButton from 'components/OutlineButton';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -24,11 +25,14 @@ const useStyles = makeStyles(theme => ({
     '& .MuiCheckbox-colorSecondary.Mui-checked': {
       color: theme.palette.black
     }
+  },
+  error: {
+    border: '1px solid red'
   }
 }));
 
 const FormInput = props => {
-  const { name, type, title, value, list, handleChange } = props;
+  const { name, type, title, value, list, handleChange, error } = props;
 
   const classes = useStyles();
 
@@ -67,6 +71,11 @@ const FormInput = props => {
     handleChange(name, result);
   }
 
+  const handleCheckRegex = (_name, _value) => {
+    var fixedInput = _value.replace(/[A-Za-z!@#$%^&*().ążźćśę€ółńĄĘŚŻŹŃŁÓ]/g, '');
+    handleChange(_name, fixedInput);
+  }
+
   return (
     <>
       <div className={classes.main}>
@@ -80,6 +89,12 @@ const FormInput = props => {
       <div>
         {
           type === 'input' && <input className={classes.input_box} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} />
+        }
+        {
+          type === 'postal_code' && <input className={clsx({[classes.input_box]: true, [classes.error]: error})} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} />
+        }
+        {
+          type === 'number' && <input className={classes.input_box} type="text" pattern="" value={value} onChange={(e) => handleCheckRegex(name, e.target.value)} />
         }
         {
           type === 'single' && <SingleSelect value={value} handleChange={(value) => handleChange(name, value)} list={list} />
@@ -110,7 +125,7 @@ const FormInput = props => {
                     <SingleSelect value={item} handleChange={(_value) => handleChangeItem(index, _value)} list={getRemainList(item)} />
                   </Grid>
                   <Grid item xs={2}>
-                    <OutlineButton icon={<DeleteIcon />} onClick={() => handleDeleteItem(index)}/>
+                    <OutlineButton icon={<DeleteIcon />} onClick={() => handleDeleteItem(index)} />
                   </Grid>
                 </React.Fragment>
               ))

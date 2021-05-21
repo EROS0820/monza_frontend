@@ -133,9 +133,9 @@ const SortTable = (props) => {
                     {
                       item.opened
                         ?
-                        <RemoveIcon fontSize="small" className={classes.plus_minus_icon} />
+                        item.sub_list.length > 0 && <RemoveIcon fontSize="small" className={classes.plus_minus_icon} />
                         :
-                        <AddIcon fontSize="small" className={classes.plus_minus_icon} />
+                        item.sub_list.length > 0 && <AddIcon fontSize="small" className={classes.plus_minus_icon} />
                     }
                     {item.name}
                   </div>

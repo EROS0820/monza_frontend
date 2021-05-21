@@ -18,7 +18,7 @@ const WarehouseGroup = props => {
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
 	const [searchOption, setSearchOption] = useState({name: '', sub_name: '', active: 0});
 	const [listInfo, setListInfo] = useState({active: [{id: 1, name: 'Nie'}, {id: 2, name: 'Tak'}]})
-	const [page, setPage] = useState(25);
+	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
 

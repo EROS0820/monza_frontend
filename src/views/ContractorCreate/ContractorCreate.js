@@ -11,8 +11,23 @@ const ContractorCreate = props => {
 	const { addToast } = useToasts()
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Magazyny', 'Dodaj nowy/Edytuj'];
 	const [data, setData] = useState({});
+	const [error, setError] = useState({postal_code: false})
 
+	const handleValidate = () => {
+		if (!data.postal_code || !data.postal_code.match(/^[0-9][0-9]-[0-9][0-9][0-9]$/)) {
+			setData({ ...data, ['postal_code']: ''});
+			setError({...error, ['postal_code']: true});
+			return false;
+		} else {
+			setError({...error, ['postal_code']: false});
+			return true;
+		}
+	}
+	
 	const handleSave = () => {
+		if (!handleValidate()) {
+			addToast('Wprowadzono błędny kod pocztowy', { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })			
+		} else 
 		contractor
 			.create(data)
 			.then(response => {
@@ -55,7 +70,7 @@ const ContractorCreate = props => {
 							<FormInput title="Ulica, numer budynku i lokalu" name="address" type="input" value={data.address} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={3}>
-							<FormInput title="Kod pocztowy" name="postal_code" type="input" value={data.postal_code} handleChange={handleChange} />
+							<FormInput title="Kod pocztowy" name="postal_code" type="postal_code" value={data.postal_code} error={error.postal_code} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={4}>
 							<FormInput title="Miejscowość" name="city" type="input" value={data.city} handleChange={handleChange} />
@@ -63,18 +78,18 @@ const ContractorCreate = props => {
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Czas realizacji zamówienia [dni]" name="order_fulfillment_time" type="input" value={data.order_fulfillment_time} handleChange={handleChange} />
+							<FormInput title="Czas realizacji zamówienia [dni]" name="order_fulfillment_time" type="number" value={data.order_fulfillment_time} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Odchylenie czasu realizacji [dni]" name="delivery_time_deviation" type="input" value={data.delivery_time_deviation} handleChange={handleChange} />
+							<FormInput title="Odchylenie czasu realizacji [dni]" name="delivery_time_deviation" type="number" value={data.delivery_time_deviation} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Minimalna wielkość zamówienia" name="minimum_order_quantity" type="input" value={data.minimum_order_quantity} handleChange={handleChange} />
+							<FormInput title="Minimalna wielkość zamówienia" name="minimum_order_quantity" type="number" value={data.minimum_order_quantity} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Minimalna wartość zamówienia [PLN] " name="minimum_order_value" type="input" value={data.minimum_order_value} handleChange={handleChange} />
+							<FormInput title="Minimalna wartość zamówienia [PLN] " name="minimum_order_value" type="number" value={data.minimum_order_value} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<FormInput title="Opis" name="description" type="area" value={data.description} handleChange={handleChange} />

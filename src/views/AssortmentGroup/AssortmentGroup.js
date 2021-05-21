@@ -17,7 +17,7 @@ const AssortmentGroup = props => {
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
 	const [searchOption, setSearchOption] = useState({name: '', sub_name: '', code: ''});
-	const [page, setPage] = useState(25);
+	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
 
