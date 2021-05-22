@@ -6,6 +6,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { SingleSelect } from 'components';
 import OutlineButton from 'components/OutlineButton';
 import clsx from 'clsx';
+import {
+  KeyboardDatePicker, MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import { pl } from 'date-fns/locale';
+import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -28,11 +33,17 @@ const useStyles = makeStyles(theme => ({
   },
   error: {
     border: '1px solid red'
+  },
+  date_picker: {
+    width: '100%',
+    '&.MuiFormControl-marginNormal': {
+      margin: theme.spacing(1, 0)
+    }
   }
 }));
 
 const FormInput = props => {
-  const { name, type, title, value, list, handleChange, error } = props;
+  const { name, type, title, value, list, handleChange, error, disabled } = props;
 
   const classes = useStyles();
 
@@ -72,12 +83,12 @@ const FormInput = props => {
   }
 
   const handleCheckRegex = (_name, _value) => {
-    var fixedInput = _value.replace(/[A-Za-z!@#$%^&*().ążźćśę€ółńĄĘŚŻŹŃŁÓ]/g, '');
+    var fixedInput = _value.replace(/[A-Za-z!@#$%^&*().ążźćśę€ółńĄĘŚŻŹŃŁÓ=\[\]\/\'";:<>\-_+\{}?|\\`~]/g, '');
     handleChange(_name, fixedInput);
   }
 
   return (
-    <>
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
       <div className={classes.main}>
         {
           type !== "check_box" &&
@@ -88,16 +99,28 @@ const FormInput = props => {
       </div>
       <div>
         {
-          type === 'input' && <input className={classes.input_box} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} />
+          type === 'input' && <input className={classes.input_box} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} disabled={disabled} />
         }
         {
-          type === 'postal_code' && <input className={clsx({[classes.input_box]: true, [classes.error]: error})} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} />
+          type === 'postal_code' && <input className={clsx({ [classes.input_box]: true, [classes.error]: error })} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} />
         }
         {
           type === 'number' && <input className={classes.input_box} type="text" pattern="" value={value} onChange={(e) => handleCheckRegex(name, e.target.value)} />
         }
         {
           type === 'single' && <SingleSelect value={value} handleChange={(value) => handleChange(name, value)} list={list} />
+        }
+        {
+          type === 'date' &&
+          <KeyboardDatePicker
+            disableToolbar
+            className={classes.date_picker}
+            variant="inline"
+            format="dd.MM.yyyy"
+            margin="normal"
+            value={value}
+            onChange={(value) => handleChange(name, value)}
+          />
         }
         {
           type === "check_box" &&
@@ -139,7 +162,7 @@ const FormInput = props => {
           </React.Fragment>
         }
       </div>
-    </>
+    </MuiPickersUtilsProvider>
   );
 };
 

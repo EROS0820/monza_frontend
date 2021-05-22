@@ -59,7 +59,10 @@ const useGlobalStyles = makeStyles(theme => ({
       padding: theme.spacing(1.5)
     },
     cursor: 'pointer',
-  }
+  },
+  date_picker: {
+    marginTop: theme.spacing(1),
+  },
 }));
 
 export default useGlobalStyles;

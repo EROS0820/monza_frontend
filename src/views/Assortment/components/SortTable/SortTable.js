@@ -64,7 +64,7 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(0)}
               >
-                Nazwa
+                ID
               </TableSortLabel>
             </TableCell>
             <TableCell>
