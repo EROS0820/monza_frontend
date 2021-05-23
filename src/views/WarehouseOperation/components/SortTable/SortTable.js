@@ -19,16 +19,13 @@ import { pl } from 'date-fns/locale';
 import DateFnsUtils from '@date-io/date-fns';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import { DeleteModal, SingleSelect } from 'components';
 import { withRouter } from 'react-router-dom';
 import useStyles from './style';
 import useGlobalStyles from 'assets/style/styles';
 import main from 'utils/main';
+import dateUtil from 'utils/moment';
 
 const SortTable = (props) => {
   const classes = useStyles();
@@ -275,7 +272,7 @@ const SortTable = (props) => {
               <>
                 <TableRow key={indx} className={global_classes.root}>
                   <TableCell>{item.id}</TableCell>
-                  <TableCell>{item.date}</TableCell>
+                  <TableCell>{dateUtil.getStringFromDate(item.date)}</TableCell>
                   <TableCell>{item.assortment_name}</TableCell>
                   <TableCell>{item.assortment_group_name}</TableCell>
                   <TableCell>{item.unit_name}</TableCell>

@@ -26,6 +26,7 @@ import {
   WarehouseOperation as WarehouseOperationView,
   WarehouseOperationCreate as WarehouseOperationCreateView,
   WarehouseOperationEdit as WarehouseOperationEditView,
+  Profile as ProfileView,
   SignIn as SignInView,
   Forgot as ForgotView,
   ResetPassword as ResetPasswordView,
@@ -184,6 +185,13 @@ const Routes = (props) => {
         layout={MainLayout}
         title='Dodawanie/Edycja operacji magazynowej'
         path="/warehouse_operation/edit/:id"
+      />
+      <RouteWithLayout
+        component={ProfileView}
+        exact
+        layout={MainLayout}
+        title='Twój profil'
+        path="/profile"
       />
       <RouteWithLayout
         component={SignInView}

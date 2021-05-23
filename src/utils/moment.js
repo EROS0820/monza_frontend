@@ -8,7 +8,7 @@ class dateUtil {
         }
         return str;
     }
-    getStringFromDate = (full_date) => {
+    getStringFromDateTime = (full_date) => {
         let data = new moment(full_date);
         let day = this.adjust2digits(data.date());
         let month = this.adjust2digits(data.month() + 1);
@@ -18,6 +18,15 @@ class dateUtil {
         let minute = this.adjust2digits(data.minute());
 
         return `${month}.${day}.${year} ${hour}:${minute}`
+    }
+
+    getStringFromDate = (full_date) => {
+        let data = new moment(full_date);
+        let day = this.adjust2digits(data.date());
+        let month = this.adjust2digits(data.month() + 1);
+        let year = data.year().toString();
+
+        return `${day}.${month}.${year}`
     }
 }
 export default new dateUtil();

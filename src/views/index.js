@@ -19,6 +19,7 @@ export { default as MeasureUnitEdit } from './MeasureUnitEdit';
 export { default as WarehouseOperation } from './WarehouseOperation';
 export { default as WarehouseOperationCreate } from './WarehouseOperationCreate';
 export { default as WarehouseOperationEdit } from './WarehouseOperationEdit';
+export { default as Profile } from './Profile';
 export { default as SignIn } from './SignIn';
 export { default as Forgot } from './Forgot';
 export { default as ResetPassword } from './ResetPassword';
