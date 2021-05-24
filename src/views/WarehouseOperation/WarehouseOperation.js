@@ -5,6 +5,8 @@ import { useToasts } from 'react-toast-notifications';
 import { SortTable } from './components';
 import { Breadcrumb, ListViewController, PaginationController } from 'components';
 import warehouse_operation from 'apis/warehouse_operation';
+import { warehouse_operation_header } from 'utils/xlsx_headers';
+import { ProgressBar } from 'components';
 
 const WarehouseOperation = props => {
 	const { children, history } = props;
@@ -26,6 +28,7 @@ const WarehouseOperation = props => {
 		contractor: [],
 		warehouse: [],
 	})
+	const [progressStatus, setProgressStatus] = useState(false);
 
 	useEffect(() => {
 		warehouse_operation
@@ -54,7 +57,21 @@ const WarehouseOperation = props => {
 		history.push('/warehouse_operation/create');
 	}
 
-	const handleImport = () => {
+	const handleImport = (rows) => {
+		setProgressStatus(true);
+		warehouse_operation
+		.create_list(rows)
+		.then(response => {
+			if (response.code === 401) {
+				history.push('/login');
+			} else {
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+					handleSearch();
+				}
+				setProgressStatus(false);
+			}
+		})
 
 	}
 
@@ -116,6 +133,7 @@ const WarehouseOperation = props => {
 				handleImport={handleImport}
 				handleExport={handleExport}
 				handleGenerate={handleGenerate}
+				header_list={warehouse_operation_header}
 			/>
 			<Breadcrumb list={breadcrumb} parent_class={global_classes.breadcrumb_class} />
 			<SortTable
@@ -132,6 +150,7 @@ const WarehouseOperation = props => {
 				total !== 0 &&
 				<PaginationController total={total} page={page} setPage={setPage} />
 			}
+			<ProgressBar progressStatus={progressStatus} />
 		</>
 	);
 };

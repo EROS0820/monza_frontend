@@ -20,7 +20,7 @@ class Utils {
   }
 
   convertNumToStr = (num) => {
-    if (!num)
+    if (num === null)
       return '';
     let str = num.toString().replace('.', ',');
     return str;

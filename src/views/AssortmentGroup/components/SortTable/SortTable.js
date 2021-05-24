@@ -244,7 +244,7 @@ const SortTable = (props) => {
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
                                 Opis
                             </Typography>
-                              <TextareaAutosize rows={6} value={item.description} className={global_classes.area} />
+                              <TextareaAutosize rows={6} value={sub_item.description} className={global_classes.area} />
                             </Grid>
                             <Grid item xs={6}>
                               <Grid container spacing={2}>
@@ -254,7 +254,7 @@ const SortTable = (props) => {
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                  <input value={item.service_demand} className={global_classes.input_box} />
+                                  <input value={sub_item.service_demand} className={global_classes.input_box} />
                                 </Grid>
                               </Grid>
                               <Grid container spacing={2}>
@@ -264,7 +264,7 @@ const SortTable = (props) => {
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                  <input value={item.refill_cycle_time} className={global_classes.input_box} />
+                                  <input value={sub_item.refill_cycle_time} className={global_classes.input_box} />
                                 </Grid>
                               </Grid>
                               <Grid container spacing={2}>
@@ -274,7 +274,7 @@ const SortTable = (props) => {
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                  <input value={item.cycle_time_deviations} className={global_classes.input_box} />
+                                  <input value={sub_item.cycle_time_deviations} className={global_classes.input_box} />
                                 </Grid>
                               </Grid>
                               <Grid container spacing={2}>
@@ -284,7 +284,7 @@ const SortTable = (props) => {
                                 </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                  <input value={item.inventory_cost_factor} className={global_classes.input_box} />
+                                  <input value={sub_item.inventory_cost_factor} className={global_classes.input_box} />
                                 </Grid>
                               </Grid>
                             </Grid>

@@ -38,6 +38,21 @@ class Warehouse {
             })
     }
 
+    create_list = (data) => {
+        return axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/warehouse/list`, {
+                data: data
+            }, {
+                headers: authHeader(storage.getStorage('token'))
+            }).then(response => {
+                if (response.data.code === 401)
+                    storage.removeStorage('token');
+                return response.data;
+            }).catch(error => {
+                return error;
+            })
+    }
+
     getListByOption = (sort_option, count, page, search_option) => {
         return axios
             .post(`${process.env.REACT_APP_BACKEND_URL}/warehouse/filter_list`, {

@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: theme.palette.background.default
   },
   mainContainer: {
-    padding: theme.spacing(5, 4, 0, 4),
+    padding: theme.spacing(5, 4),
   },
 }));
 

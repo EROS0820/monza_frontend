@@ -6,6 +6,8 @@ import { Breadcrumb, ListViewController, PaginationController } from 'components
 import { SortTable } from './components';
 import { useToasts } from 'react-toast-notifications';
 import warehouse from 'apis/warehouse';
+import { warehouse_header } from 'utils/xlsx_headers';
+import { ProgressBar } from 'components';
 
 const Warehouse = props => {
 	const { children, history } = props;
@@ -21,6 +23,7 @@ const Warehouse = props => {
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
+	const [progressStatus, setProgressStatus] = useState(false);
 
 	useEffect(() => {
 		handleSearch();
@@ -35,8 +38,21 @@ const Warehouse = props => {
 		history.push('/warehouse/create');
 	}
 
-	const handleImport = () => {
-
+	const handleImport = (rows) => {
+		setProgressStatus(true);
+		warehouse
+		.create_list(rows)
+		.then(response => {
+			if (response.code === 401) {
+				history.push('/login');
+			} else {
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+					handleSearch();
+					setProgressStatus(false);
+				}
+			}
+		})
 	}
 
 	const handleExport = () => {
@@ -92,6 +108,7 @@ const Warehouse = props => {
 				handleCreate={handleCreate}
 				handleImport={handleImport}
 				handleExport={handleExport}
+				header_list={warehouse_header}
 			/>
 			<Breadcrumb list={breadcrumb} parent_class={global_classes.breadcrumb_class} />
 			<SortTable
@@ -107,6 +124,7 @@ const Warehouse = props => {
 				total !== 0 &&
 				<PaginationController total={total} page={page} setPage={setPage} />
 			}
+			<ProgressBar progressStatus={progressStatus} />
 		</>
 	);
 };
