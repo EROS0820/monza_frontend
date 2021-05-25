@@ -7,6 +7,7 @@ import { Breadcrumb, ListViewController, PaginationController } from 'components
 import warehouse_operation from 'apis/warehouse_operation';
 import { warehouse_operation_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
+import main from 'utils/main';
 
 const WarehouseOperation = props => {
 	const { children, history } = props;
@@ -76,7 +77,19 @@ const WarehouseOperation = props => {
 	}
 
 	const handleExport = () => {
-
+		setProgressStatus(true);
+		warehouse_operation
+			.export()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						main.export(warehouse_operation_header, response.data);
+					}
+					setProgressStatus(false);
+				}
+			})
 	}
 
 	const handleGenerate = () => {

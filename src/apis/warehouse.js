@@ -23,6 +23,24 @@ class Warehouse {
             })
     }
 
+    export = (id) => {
+        return axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/warehouse/export`, {
+                headers: authHeader(storage.getStorage('token')),
+            })
+            .then(response => {
+                if (response.data.code === 401) {
+                    storage.removeStorage('token');
+                    storage.removeStorage('role');
+                    return response.data;
+                } else if (response.data.code === 200) {
+                    return response.data;
+                }
+            }).catch(error => {
+                return error;
+            })
+    }
+
     create = (data) => {
         return axios
             .post(`${process.env.REACT_APP_BACKEND_URL}/warehouse`, {

@@ -6,8 +6,9 @@ import { Breadcrumb, ListViewController, PaginationController } from 'components
 import { SortTable } from './components';
 import { useToasts } from 'react-toast-notifications';
 import warehouse from 'apis/warehouse';
-import { warehouse_header } from 'utils/xlsx_headers';
+import { warehouse_group_header, warehouse_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
+import main from 'utils/main';
 
 const Warehouse = props => {
 	const { children, history } = props;
@@ -56,7 +57,19 @@ const Warehouse = props => {
 	}
 
 	const handleExport = () => {
-
+		setProgressStatus(true);
+		warehouse
+			.export()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						main.export(warehouse_header, response.data);
+					}
+					setProgressStatus(false);
+				}
+			})
 	}
 	
 

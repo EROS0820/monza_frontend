@@ -316,8 +316,7 @@ const SortTable = (props) => {
                               <input value={
                                 main.convertNumToStr(
                                   main.round(main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'purchase_price', '')) 
-                                  * main.convertStrToNum(item.receipt_value) 
-                                  * main.convertStrToNum(item.reception_frequency),
+                                  * main.convertStrToNum(item.receipt_value),
                                   2))} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>
@@ -362,7 +361,6 @@ const SortTable = (props) => {
                                 main.round(
                                   main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'sale_price', '')) 
                                   * main.convertStrToNum(item.issue_amount) 
-                                  * main.convertStrToNum(item.release_frequency)
                                   , 2))} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>

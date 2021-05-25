@@ -8,6 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import assortment_group from 'apis/assortment_group';
 import {assortment_group_header} from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
+import main from 'utils/main';
 
 const AssortmentGroup = props => {
 	const { children, history } = props;
@@ -55,7 +56,19 @@ const AssortmentGroup = props => {
 	}
 
 	const handleExport = () => {
-
+		setProgressStatus(true);
+		assortment_group
+			.export()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						main.export(assortment_group_header, response.data);
+					}
+					setProgressStatus(false);
+				}
+			})
 	}
 	
 

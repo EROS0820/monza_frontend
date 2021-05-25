@@ -19,6 +19,7 @@ class WarehouseGroup {
                 return error;
             })
     }
+
     get = (id) => {
         return axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/warehousegroup`, {
@@ -26,6 +27,24 @@ class WarehouseGroup {
                 params: {
                     id: id
                 },
+            })
+            .then(response => {
+                if (response.data.code === 401) {
+                    storage.removeStorage('token');
+                    storage.removeStorage('role');
+                    return response.data;
+                } else if (response.data.code === 200) {
+                    return response.data;
+                }
+            }).catch(error => {
+                return error;
+            })
+    }
+
+    export = (id) => {
+        return axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/warehousegroup/export`, {
+                headers: authHeader(storage.getStorage('token')),
             })
             .then(response => {
                 if (response.data.code === 401) {

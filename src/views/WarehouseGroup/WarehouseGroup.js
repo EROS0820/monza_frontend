@@ -8,6 +8,8 @@ import { useToasts } from 'react-toast-notifications';
 import warehousegroup from 'apis/warehousegroup';
 import {warehouse_group_header} from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
+import main from 'utils/main';
+import warehouse from 'apis/warehouse';
 
 const WarehouseGroup = props => {
 	const { children, history } = props;
@@ -56,7 +58,19 @@ const WarehouseGroup = props => {
 	}
 
 	const handleExport = () => {
-
+		setProgressStatus(true);
+		warehousegroup
+			.export()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						main.export(warehouse_group_header, response.data);
+					}
+					setProgressStatus(false);
+				}
+			})
 	}
 	
 

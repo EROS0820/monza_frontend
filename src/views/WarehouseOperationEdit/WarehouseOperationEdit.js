@@ -43,8 +43,8 @@ const WarehouseOperationEdit = props => {
 	useEffect(() => {
 		let purchase_price = main.getAttrFromArray(listInfo.assortment, data.assortment, 'purchase_price', '');
 		let sale_price = main.getAttrFromArray(listInfo.assortment, data.assortment, 'sale_price', '');
-		let calculated_received_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.receipt_value) * main.convertStrToNum(data.reception_frequency), 2)
-		let calculated_releases_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.issue_amount) * main.convertStrToNum(data.release_frequency), 2);
+		let calculated_received_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.receipt_value), 2);
+		let calculated_releases_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.issue_amount), 2);
 		let stock_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.inventory), 2);
 		let order_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.order_quantity), 2);
 		setData({

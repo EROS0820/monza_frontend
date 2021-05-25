@@ -8,6 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import contractor from 'apis/contractor';
 import { contractor_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
+import main from 'utils/main';
 
 const Contractor = props => {
 	const { children, history } = props;
@@ -60,7 +61,19 @@ const Contractor = props => {
 	}
 
 	const handleExport = () => {
-
+		setProgressStatus(true);
+		contractor
+			.export()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						main.export(contractor_header, response.data);
+					}
+					setProgressStatus(false);
+				}
+			})
 	}
 	
 

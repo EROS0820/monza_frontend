@@ -7,6 +7,7 @@ import { Breadcrumb, ListViewController, PaginationController } from 'components
 import assortment from 'apis/assortment';
 import { assortment_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
+import main from 'utils/main';
 
 const Assortment = props => {
 	const { children, history } = props;
@@ -66,14 +67,26 @@ const Assortment = props => {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
 						handleSearch();
-						setProgressStatus(false);
 					}
+					setProgressStatus(false);
 				}
 			})
 	}
 
 	const handleExport = () => {
-
+		setProgressStatus(true);
+		assortment
+			.export()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						main.export(assortment_header, response.data);
+					}
+					setProgressStatus(false);
+				}
+			})
 	}
 
 
