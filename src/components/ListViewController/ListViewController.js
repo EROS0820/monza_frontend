@@ -34,7 +34,7 @@ const ListViewController = props => {
 
 						header.map((item, index) => {
 							if (item != header_list[index].header) {
-								count ++;
+								count++;
 								console.log(item);
 								console.log(header_list[index].header);
 							}
@@ -47,7 +47,7 @@ const ListViewController = props => {
 							rows.map((row, index) => {
 								let res_item = {};
 								row.map((item, index) => {
-									res_item = {...res_item, [header_list[index].attr]: item};
+									res_item = { ...res_item, [header_list[index].attr]: item };
 								})
 								result.push(res_item);
 							})
@@ -64,10 +64,13 @@ const ListViewController = props => {
 				<div style={{ marginRight: '20px' }}>
 					<OutlineButton title={CreateTitle} onClick={handleCreate} />
 				</div>
-				<div style={{ marginRight: '20px' }}>
-					<OutlineButton title={ImportTitle} onClick={handleInputClick} />
-					<input type="file" id="input" style={{display: 'none'}}/>
-				</div>
+				{
+					ImportTitle &&
+					<div style={{ marginRight: '20px' }}>
+						<OutlineButton title={ImportTitle} onClick={handleInputClick} />
+						<input type="file" id="input" style={{ display: 'none' }} />
+					</div>
+				}
 				{
 					AddTitle &&
 					<div>

@@ -47,7 +47,7 @@ const Sidebar = props => {
 		},
 		{
 			title: 'Analiza ABC i XYZ',
-			href: '/analyze',
+			href: '/analyze_xyz',
 		},
 		{
 			label: 'ANALIZA WSKAŹNIKÓW ZAPASÓW'

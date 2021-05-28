@@ -26,6 +26,9 @@ import {
   WarehouseOperation as WarehouseOperationView,
   WarehouseOperationCreate as WarehouseOperationCreateView,
   WarehouseOperationEdit as WarehouseOperationEditView,
+  AnalizeXyz as AnalizeXyzView,
+  AnalizeXyzCreate as AnalizeXyzCreateView,
+  AnalizeXyzResult as AnalizeXyzResultView,
   Profile as ProfileView,
   SignIn as SignInView,
   Forgot as ForgotView,
@@ -185,6 +188,27 @@ const Routes = (props) => {
         layout={MainLayout}
         title='Dodawanie/Edycja operacji magazynowej'
         path="/warehouse_operation/edit/:id"
+      />
+      <RouteWithLayout
+        component={AnalizeXyzView}
+        exact
+        layout={MainLayout}
+        title='Lista analiz ABC i XYZ'
+        path="/analyze_xyz"
+      />
+      <RouteWithLayout
+        component={AnalizeXyzCreateView}
+        exact
+        layout={MainLayout}
+        title='Dodawanie analizy ABC i XYZ'
+        path="/analyze_xyz/create"
+      />
+      <RouteWithLayout
+        component={AnalizeXyzResultView}
+        exact
+        layout={MainLayout}
+        title='Wyniki analizy'
+        path="/analyze_xyz/result"
       />
       <RouteWithLayout
         component={ProfileView}

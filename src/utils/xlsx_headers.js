@@ -203,7 +203,7 @@ const measure_unit_header = [
 
 const warehouse_operation_header = [
   {
-    header: 'Asortyment',
+    header: 'Nazwa asortymentu',
     attr: 'assortment_name'
   }, {
     header: 'Grupa',
